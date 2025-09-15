@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>رویداد ملی سپر نوآوری — ثبت ایده</title>
+  <meta name="description" content="ایده‌ات را در ۳ دقیقه ثبت کن؛ UI اجتماعی، انیمیشن‌های نرم، ویدیو و کارت‌های جذاب برای اشتراک‌گذاری." />
+  <meta name="color-scheme" content="light dark" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="رویداد ملی سپر نوآوری — ثبت ایده" />
+  <meta property="og:description" content="ثبت سریع ایده + کد پیگیری. همراه با ویدیو، انیمیشن و کارت‌های اجتماعی." />
+  <meta property="og:image" content="og-cover.jpg" />
+  <meta property="og:locale" content="fa_IR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="رویداد ملی سپر نوآوری — ثبت ایده" />
+  <meta name="twitter:description" content="ثبت سریع ایده + کد پیگیری. همراه با ویدیو، انیمیشن و کارت‌های اجتماعی." />
+  <meta name="twitter:image" content="og-cover.jpg" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.scss" />
+</head>
+<body class="bg-radial bg-grid bg-noise">
+  <a class="skip-link" href="#idea-form">رفتن به فرم</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="brand">
+        <img src="logo.svg" alt="لوگوی رویداد" class="logo" />
+        <div>
+          <strong class="event-name">رویداد ملی سپر نوآوری</strong>
+          <span class="event-tag">#نوآوری #ایده_پردازی #تاب‌آوری_اجتماعی</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#benefits">مزایا</a>
+        <a href="#stories">هایلایت‌ها</a>
+        <a href="#video">ویدیو</a>
+        <a href="#idea-form" class="btn btn--primary">ثبت ایده</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Progress bar -->
+  <div class="global-progress" aria-hidden="true">
+    <div class="global-progress__bar" id="scroll-progress"></div>
+  </div>
+
+  <main>
+    <!-- HERO with video background & countdown -->
+    <section class="hero video-hero" id="home">
+      <!-- Replace with your MP4/WebM and poster -->
+      <video class="video-hero__bg" autoplay muted loop playsinline poster="hero-poster.jpg">
+        <source src="hero-bg.mp4" type="video/mp4" />
+        <!-- <source src="hero-bg.webm" type="video/webm" /> -->
+      </video>
+
+      <div class="container video-hero__content">
+        <div class="reveal" data-animate="fade-up">
+          <h1 class="gradient-text">ایده امروزت، سپر فرداست</h1>
+          <p>در ۳ گام ساده، ایده‌ات را ثبت کن و بلافاصله کد پیگیری دریافت کن.</p>
+
+          <!-- Countdown -->
+          <div class="card glow-border" aria-label="شمارش‌معکوس تا پایان مهلت">
+            <h2 class="card__title">زمان باقی‌مانده تا پایان مهلت</h2>
+            <p id="deadline-readable" class="card__note">—</p>
+            <div id="countdown" class="stats" data-deadline="2025-11-20T23:59:00+03:30" role="timer" aria-live="polite">
+              <div class="stat"><div class="num" id="cd-days">—</div><div class="label">روز</div></div>
+              <div class="stat"><div class="num" id="cd-hours">—</div><div class="label">ساعت</div></div>
+              <div class="stat"><div class="num" id="cd-mins">—</div><div class="label">دقیقه</div></div>
+              <div class="stat"><div class="num" id="cd-secs">—</div><div class="label">ثانیه</div></div>
+            </div>
+            <p id="deadline-status" class="form__status"></p>
+          </div>
+
+          <div class="form__actions">
+            <a class="btn btn--primary" href="#idea-form">شروع ثبت</a>
+            <a class="btn btn--ghost" href="#benefits">مشاهده مزایا</a>
+          </div>
+        </div>
+
+        <!-- Social bar -->
+        <aside class="social-bar reveal" data-animate="fade-left" aria-label="اشتراک‌گذاری">
+          <button class="social-btn" data-share="x" title="به ایکس (توییتر)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2h3.1l-6.8 7.7 8 10.3H18l-5-6.4-5.7 6.4H2.2l7.3-8.2L2 2h6l4.5 5.9L18.9 2z"/></svg></button>
+          <button class="social-btn" data-share="telegram" title="به تلگرام"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.9 15.3l-.4 5.6c.6 0 .9-.3 1.2-.6l2.9-2.8 6.1 4.5c1.1.6 1.9.3 2.2-1l4-18.6c.4-1.6-.6-2.2-1.7-1.8L1.6 10.5c-1.5.6-1.5 1.5-.3 1.9l5.9 1.8L20 6.4c.7-.4 1.3-.2.8.3"/></svg></button>
+          <button class="social-btn" data-share="link" title="کپی لینک"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.9 12a5 5 0 015-5h3v2h-3a3 3 0 000 6h3v2h-3a5 5 0 01-5-5zm6-1h4v2h-4v-2zm5.2-4h3a5 5 0 110 10h-3v-2h3a3 3 0 100-6h-3V7z"/></svg></button>
+          <button class="social-btn" data-share="native"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3v4h-2V3H7V1h10v2h-4zM5 7h14v14H5V7zm2 2v10h10V9H7z"/></svg></button>
+        </aside>
+      </div>
+
+      <!-- floating shapes -->
+      <div class="floaty floaty--a" aria-hidden="true"></div>
+      <div class="floaty floaty--b" aria-hidden="true"></div>
+    </section>
+
+    <!-- Benefits cards (social-friendly) -->
+    <section id="benefits" class="section">
+      <div class="container">
+        <h2 class="reveal" data-animate="fade-up">مزایای شرکت در رویداد</h2>
+        <div class="section-cards scroll-snap-x reveal" data-animate="fade-up">
+          <article class="card card--section">
+            <div class="card__icon">🔥</div>
+            <h3 class="card__title">دیده‌شدن عمومی</h3>
+            <p class="card__text">کارت‌های اشتراکی آماده برای شبکه‌های اجتماعی + هشتگ‌های اختصاصی.</p>
+          </article>
+          <article class="card card--section">
+            <div class="card__icon">🤝</div>
+            <h3 class="card__title">شبکه حرفه‌ای</h3>
+            <p class="card__text">دسترسی به منتورها، داوران و سرمایه‌گذاران معتبر.</p>
+          </article>
+          <article class="card card--section">
+            <div class="card__icon">🚀</div>
+            <h3 class="card__title">شتاب اجرا</h3>
+            <p class="card__text">آزمایش اولیه و مسیر روشن تا MVP و جذب سرمایه.</p>
+          </article>
+          <article class="card card--section">
+            <div class="card__icon">🛡️</div>
+            <h3 class="card__title">تأثیر اجتماعی</h3>
+            <p class="card__text">حل چالش‌های واقعی بحران و تاب‌آوری اجتماعی.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story / Highlight cards (shareable) -->
+    <section id="stories" class="section section--alt">
+      <div class="container">
+        <h2 class="reveal" data-animate="fade-up">هایلایت‌ها و داستان‌های موفقیت</h2>
+        <div class="story-grid reveal" data-animate="fade-up">
+          <article class="story-card">
+            <img src="story1.jpg" alt="نمونه ایده ۱" class="story-card__media" />
+            <div class="story-card__body">
+              <h3>سامانه هشدار سریع سیلاب</h3>
+              <p>پایش هوشمند بارش و دبی رودخانه‌ها با بینایی ماشین.</p>
+              <div class="story-card__actions">
+                <button class="btn btn--ghost btn--sm" data-share-card>اشتراک</button>
+                <a href="#idea-form" class="btn btn--primary btn--sm">ثبت ایده مشابه</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="story-card">
+            <img src="story2.jpg" alt="نمونه ایده ۲" class="story-card__media" />
+            <div class="story-card__body">
+              <h3>پهپاد امدادگر</h3>
+              <p>ارسال بسته‌های نجات در مناطق صعب‌العبور با مسیریابی هوشمند.</p>
+              <div class="story-card__actions">
+                <button class="btn btn--ghost btn--sm" data-share-card>اشتراک</button>
+                <a href="#idea-form" class="btn btn--primary btn--sm">ثبت ایده مشابه</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="story-card">
+            <img src="story3.jpg" alt="نمونه ایده ۳" class="story-card__media" />
+            <div class="story-card__body">
+              <h3>اپلیکیشن پناهگاه‌یاب</h3>
+              <p>نمایش امن‌ترین مسیر و نزدیک‌ترین پناهگاه‌ها در زمان بحران.</p>
+              <div class="story-card__actions">
+                <button class="btn btn--ghost btn--sm" data-share-card>اشتراک</button>
+                <a href="#idea-form" class="btn btn--primary btn--sm">ثبت ایده مشابه</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video section -->
+    <section id="video" class="section">
+      <div class="container">
+        <h2 class="reveal" data-animate="fade-up">ویدیوی معرفی رویداد</h2>
+        <div class="video-card reveal" data-animate="fade-up">
+          <div class="video-card__media">
+            <video controls preload="metadata" poster="video-poster.jpg">
+              <source src="promo.mp4" type="video/mp4" />
+              مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+            </video>
+          </div>
+          <div class="video-card__body">
+            <h3>چرا همین امروز ایده‌ات را ثبت کنی؟</h3>
+            <p>در این ویدیو، فرآیند ثبت تا اعلام نتایج و مزایای شرکت را می‌بینی.</p>
+            <a href="#idea-form" class="btn btn--primary">شروع ثبت ایده</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Idea form anchor -->
+    <section id="idea-form" class="section section--alt">
+      <div class="container">
+        <h2>فرم ثبت ایده</h2>
+        <p class="card__note">فرم سه‌مرحله‌ای‌ات را اینجا قرار بده — این صفحه آماده اتصال است.</p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="container cta-band reveal" data-animate="fade-up">
+        <div>
+          <h3>آماده‌ای ایده‌ات را منتشر کنی؟</h3>
+          <p>کارت اختصاصی‌ات برای اشتراک‌گذاری در شبکه‌های اجتماعی آماده می‌شود.</p>
+        </div>
+        <a href="#idea-form" class="btn btn--primary">ثبت سریع ایده</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© ۱۴۰۴ — مرکز رشد واحدهای فناور نوشهر</p>
+    </div>
+  </footer>
+
+  <!-- Scripts: reveal, progress, countdown, share -->
+  <script>
+    // Helpers
+    const $ = (s, r=document) => r.querySelector(s);
+    const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+    const toFa = (n) => Number(n).toLocaleString("fa-IR");
+
+    // Scroll progress
+    (function(){
+      const bar = $("#scroll-progress");
+      if (!bar) return;
+      const onScroll = () => {
+        const h = document.documentElement;
+        const p = 100 * (h.scrollTop / (h.scrollHeight - h.clientHeight));
+        bar.style.width = p + "%";
+      };
+      document.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    })();
+
+    // Intersection reveal
+    (function() {
+      const items = $$(".reveal");
+      if (!("IntersectionObserver" in window) || items.length === 0) {
+        items.forEach(el => el.classList.add("in"));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      items.forEach(el => io.observe(el));
+    })();
+
+    // Countdown
+    (function(){
+      const el = $("#countdown");
+      if (!el) return;
+      const target = new Date(el.dataset.deadline);
+      const readable = $("#deadline-readable");
+      const status = $("#deadline-status");
+      const d = $("#cd-days"), h = $("#cd-hours"), m = $("#cd-mins"), s = $("#cd-secs");
+      try { readable.textContent = "تا تاریخ: " + target.toLocaleString("fa-IR"); } catch {}
+
+      function tick(){
+        const diff = target.getTime() - Date.now();
+        if (diff <= 0) {
+          d.textContent = h.textContent = m.textContent = s.textContent = "۰";
+          status.textContent = "مهلت ارسال به پایان رسید.";
+          clearInterval(timer);
+          return;
+        }
+        const t = Math.floor(diff/1000);
+        const days = Math.floor(t/86400);
+        const hours = Math.floor((t%86400)/3600);
+        const mins = Math.floor((t%3600)/60);
+        const secs = t%60;
+        d.textContent = toFa(days);
+        h.textContent = toFa(hours);
+        m.textContent = toFa(mins);
+        s.textContent = toFa(secs);
+        status.textContent = `باقی‌مانده: ${toFa(days)} روز، ${toFa(hours)} ساعت، ${toFa(mins)} دقیقه و ${toFa(secs)} ثانیه.`;
+      }
+      const timer = setInterval(tick, 1000);
+      tick();
+    })();
+
+    // Social share buttons
+    (function(){
+      const shareBtns = $$(".social-btn, [data-share-card]");
+      shareBtns.forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const type = btn.dataset.share;
+          const shareData = {
+            title: document.title,
+            text: "ایده‌ات را در رویداد ملی سپر نوآوری ثبت کن!",
+            url: location.href
+          };
+          // Native share
+          if (type === "native" && navigator.share) {
+            try { await navigator.share(shareData); } catch {}
+            return;
+          }
+          // Copy link
+          if (type === "link") {
+            try { await navigator.clipboard.writeText(location.href); btn.classList.add("ok"); setTimeout(()=>btn.classList.remove("ok"),1000);} catch {}
+            return;
+          }
+          // X / Telegram fallback
+          const text = encodeURIComponent("ایده‌ام را در رویداد ملی سپر نوآوری ثبت می‌کنم! #نوآوری #تاب‌آوری");
+          const url = encodeURIComponent(location.href);
+          if (type === "x") window.open(`https://x.com/intent/tweet?text=${text}&url=${url}`,'_blank');
+          if (type === "telegram") window.open(`https://t.me/share/url?url=${url}&text=${text}`,'_blank');
+          // Share a story-card
+          if (btn.hasAttribute("data-share-card")) {
+            if (navigator.share) { try { await navigator.share(shareData); } catch {} }
+            else { try { await navigator.clipboard.writeText(location.href); } catch {} }
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

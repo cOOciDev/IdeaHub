@@ -1,0 +1,343 @@
+Below are two files: `index.html` and `styles.scss`.
+
+---
+
+```html
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>رویداد ملی سپر نوآوری — ثبت ایده</title>
+  <meta name="description" content="یک وبسایت سبک و واکنش‌گرا برای ثبت ایده‌های شما در رویداد ملی سپر نوآوری." />
+  <meta property="og:title" content="رویداد ملی سپر نوآوری — ثبت ایده" />
+  <meta property="og:description" content="ایده‌تان را ثبت کنید؛ سریع، ساده و امن." />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- Compile styles.scss ➜ styles.css and include below -->
+  <link rel="stylesheet" href="styles.scss" />
+</head>
+<body>
+  <a class="skip-link" href="#idea-form">رفتن به فرم</a>
+
+  <header class="site-header" role="banner">
+    <div class="container">
+      <div class="brand">
+        <img src="logo.svg" alt="لوگوی رویداد" class="logo" />
+        <div>
+          <strong class="event-name">رویداد ملی سپر نوآوری</strong>
+          <span class="event-tag">ایده‌پردازی برای مدیریت بحران، پدافند غیرعامل و تاب‌آوری اجتماعی</span>
+        </div>
+      </div>
+      <nav class="nav" aria-label="ناوبری اصلی">
+        <a href="#about">درباره</a>
+        <a href="#how">چطور شرکت کنم؟</a>
+        <a href="#timeline">زمان‌بندی</a>
+        <a href="#faq">سوالات</a>
+        <a href="#idea-form" class="btn btn--primary">ثبت ایده</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero__content">
+          <h1 id="hero-title">ایده امروزت، سپر فرداست</h1>
+          <p>ایده‌ات را در کمتر از ۳ دقیقه ثبت کن. فایل پیوست بگذار، دسته‌بندی انتخاب کن و شماره پیگیری دریافت کن.</p>
+          <div class="hero__ctas">
+            <a class="btn btn--primary" href="#idea-form">ثبت سریع ایده</a>
+            <a class="btn btn--ghost" href="#about">اطلاعات رویداد</a>
+          </div>
+          <ul class="meta">
+            <li><span class="icon" aria-hidden>⏳</span> مهلت ارسال: <b id="deadline-text">—</b></li>
+            <li><span class="icon" aria-hidden>📍</span> برگزارکننده: مرکز رشد واحدهای فناور نوشهر</li>
+          </ul>
+        </div>
+        <div class="hero__card" aria-label="کارت ثبت فوری">
+          <form id="quick-form" class="card" novalidate>
+            <h2 class="card__title">ثبت خیلی سریع</h2>
+            <label class="field">
+              <span>عنوان ایده</span>
+              <input type="text" name="title" required maxlength="80" placeholder="مثلاً: سامانه هشدار حریق مبتنی بر بینایی ماشین" />
+              <small class="hint"><b data-count="title">0</b>/80</small>
+            </label>
+            <label class="field">
+              <span>ایمیل</span>
+              <input type="email" name="email" inputmode="email" required placeholder="your@example.com" />
+            </label>
+            <button class="btn btn--primary btn--full">ادامه به فرم کامل</button>
+            <p class="card__note">در گام بعدی می‌توانید توضیحات کامل و فایل ضمیمه اضافه کنید.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container grid-2">
+        <div>
+          <h2>درباره رویداد</h2>
+          <p>«سپر نوآوری» با هدف جذب ایده‌های خلاقانه برای مدیریت بحران، پدافند غیرعامل و افزایش تاب‌آوری اجتماعی برگزار می‌شود. ما به دنبال راهکارهای عملی، مقیاس‌پذیر و قابل اجرا هستیم.</p>
+          <ul class="checklist">
+            <li>پذیرش ایده در ۶ محور اصلی</li>
+            <li>ارزیابی سریع و شفاف</li>
+            <li>امکان اتصال به منتور و سرمایه‌گذار</li>
+          </ul>
+        </div>
+        <div class="about__card card">
+          <h3 class="card__title">محورهای رویداد</h3>
+          <ul class="pill-list" id="axis-list" aria-label="محورها">
+            <li>پایش و هشدار بحران</li>
+            <li>امنیت و پدافند غیرعامل</li>
+            <li>تاب‌آوری زیرساخت</li>
+            <li>نجات و امداد هوشمند</li>
+            <li>آموزش و فرهنگ‌سازی</li>
+            <li>داده و هوش مصنوعی</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="section muted">
+      <div class="container">
+        <h2>چطور شرکت کنم؟</h2>
+        <ol class="steps" aria-label="مراحل ارسال ایده">
+          <li>
+            <span class="step__num">۱</span>
+            <div>
+              <h3>فرم را پر کن</h3>
+              <p>عنوان دقیق، دسته‌بندی مناسب و توضیح روشن از مسئله و راهکار بده.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step__num">۲</span>
+            <div>
+              <h3>فایل اختیاری</h3>
+              <p>می‌توانی PDF یا اسلاید اضافه کنی (حداکثر 10MB).</p>
+            </div>
+          </li>
+          <li>
+            <span class="step__num">۳</span>
+            <div>
+              <h3>دریافت کد پیگیری</h3>
+              <p>کد پیگیری نمایش داده می‌شود و به ایمیل‌ات ارسال می‌گردد.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="idea-form" class="section">
+      <div class="container">
+        <h2>فرم ثبت ایده</h2>
+        <form id="full-form" class="form" enctype="multipart/form-data" novalidate>
+          <!-- Honeypot -->
+          <input type="text" name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
+
+          <div class="form__grid">
+            <label class="field">
+              <span>نام و نام‌خانوادگی</span>
+              <input type="text" name="name" required placeholder="مثلاً: علی رضایی" />
+            </label>
+            <label class="field">
+              <span>ایمیل</span>
+              <input type="email" name="email" required placeholder="your@example.com" />
+            </label>
+            <label class="field">
+              <span>موبایل (اختیاری)</span>
+              <input type="tel" name="phone" inputmode="tel" placeholder="09xxxxxxxxx" />
+            </label>
+            <label class="field">
+              <span>عنوان ایده</span>
+              <input type="text" name="title" required maxlength="120" placeholder="تیتر کوتاه و دقیق" />
+              <small class="hint"><b data-count="title">0</b>/120</small>
+            </label>
+            <label class="field">
+              <span>دسته‌بندی</span>
+              <select name="category" required>
+                <option value="">انتخاب کنید…</option>
+                <option>پایش و هشدار بحران</option>
+                <option>امنیت و پدافند غیرعامل</option>
+                <option>تاب‌آوری زیرساخت</option>
+                <option>نجات و امداد هوشمند</option>
+                <option>آموزش و فرهنگ‌سازی</option>
+                <option>داده و هوش مصنوعی</option>
+              </select>
+            </label>
+            <label class="field field--full">
+              <span>شرح ایده</span>
+              <textarea name="description" required rows="6" maxlength="1500" placeholder="مسئله، راهکار، مزیت، مخاطب، منابع موردنیاز…"></textarea>
+              <small class="hint"><b data-count="description">0</b>/1500</small>
+            </label>
+
+            <div class="field field--drop">
+              <span>پیوست (اختیاری)</span>
+              <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="انتخاب یا رها کردن فایل">
+                <input type="file" id="file" name="file" accept=".pdf,.ppt,.pptx,.doc,.docx,.zip" />
+                <p class="dropzone__text">فایل را اینجا رها کنید یا کلیک کنید</p>
+                <small>حداکثر 10MB</small>
+              </div>
+            </div>
+
+            <label class="check field field--full">
+              <input type="checkbox" name="consent" required />
+              <span>قوانین و <a href="#" target="_blank">حریم خصوصی</a> را می‌پذیرم.</span>
+            </label>
+          </div>
+
+          <div class="form__actions">
+            <button type="submit" class="btn btn--primary">ارسال ایده</button>
+            <button type="button" class="btn btn--ghost" id="save-draft">ذخیره پیش‌نویس</button>
+            <span class="form__status" role="status" aria-live="polite"></span>
+          </div>
+        </form>
+
+        <dialog id="success-modal" class="modal">
+          <form method="dialog" class="modal__body">
+            <h3>ایده شما ثبت شد ✅</h3>
+            <p>کد پیگیری: <b id="ticket"></b></p>
+            <menu class="modal__actions">
+              <button class="btn btn--primary">باشه</button>
+              <a class="btn" id="download-json" href="#">دانلود رسید (JSON)</a>
+            </menu>
+          </form>
+        </dialog>
+      </div>
+    </section>
+
+    <section id="timeline" class="section muted">
+      <div class="container">
+        <h2>زمان‌بندی</h2>
+        <ul class="timeline" aria-label="تقویم رویداد">
+          <li><b>ارسال ایده</b><span>تا ۳۰ مهر ۱۴۰۴</span></li>
+          <li><b>داوری اولیه</b><span>۱۰ آبان ۱۴۰۴</span></li>
+          <li><b>اعلام نتایج</b><span>۲۰ آبان ۱۴۰۴</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="container">
+        <h2>سوالات پرتکرار</h2>
+        <details>
+          <summary>آیا می‌توانم چند ایده ارسال کنم؟</summary>
+          <p>بله، اما هر ایده باید به صورت فرم جدا ثبت شود.</p>
+        </details>
+        <details>
+          <summary>مالکیت فکری ایده چه می‌شود؟</summary>
+          <p>مالکیت برای صاحب ایده محفوظ است؛ ارزیابی و همکاری‌ها با توافق‌نامه جدا انجام می‌شود.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© ۱۴۰۴ — مرکز رشد واحدهای فناور نوشهر • <a href="#">قوانین</a> • <a href="#">حریم خصوصی</a></p>
+    </div>
+  </footer>
+
+  <script>
+  // -------- Utility
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+
+  // Deadline text demo (replace with real date if needed)
+  (function setDeadline(){
+    const d = new Date();
+    d.setMonth(d.getMonth()+1);
+    $('#deadline-text').textContent = d.toLocaleDateString('fa-IR');
+  })();
+
+  // Char counters
+  function bindCounter(form){
+    $$('input[maxlength], textarea[maxlength]', form).forEach(el => {
+      const key = el.name;
+      const b = $(`[data-count="${key}"]`, form.closest('section')) || $(`[data-count="${key}"]`, form);
+      const update = () => { if (b) b.textContent = String(el.value.length); };
+      el.addEventListener('input', update); update();
+    });
+  }
+  bindCounter($('#quick-form')); bindCounter($('#full-form'));
+
+  // Quick ➜ Prefill Full
+  $('#quick-form').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    $('#full-form [name="title"]').value = fd.get('title')||'';
+    $('#full-form [name="email"]').value = fd.get('email')||'';
+    document.getElementById('idea-form').scrollIntoView({behavior:'smooth'});
+  });
+
+  // Dropzone
+  const dz = $('#dropzone');
+  const fileInput = $('#file');
+  ['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev, e=>{e.preventDefault(); dz.classList.add('is-drag');}));
+  ;['dragleave','drop'].forEach(ev=>dz.addEventListener(ev, e=>{e.preventDefault(); dz.classList.remove('is-drag');}));
+  dz.addEventListener('click', ()=> fileInput.click());
+  dz.addEventListener('drop', e=>{ fileInput.files = e.dataTransfer.files; });
+
+  // Draft save
+  $('#save-draft').addEventListener('click', ()=>{
+    const form = $('#full-form');
+    const data = Object.fromEntries(new FormData(form).entries());
+    localStorage.setItem('idea-draft', JSON.stringify(data));
+    $('.form__status').textContent = 'پیش‌نویس ذخیره شد';
+    setTimeout(()=>{$('.form__status').textContent='';}, 2000);
+  });
+  (function loadDraft(){
+    const raw = localStorage.getItem('idea-draft'); if(!raw) return;
+    const data = JSON.parse(raw);
+    for(const k in data){ const el = $(`#full-form [name="${k}"]`); if(el) el.value = data[k]; }
+  })();
+
+  // Submit (demo-only; replace with real API endpoint)
+  $('#full-form').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const form = e.target;
+    const hp = form.querySelector('.hp');
+    if (hp.value) { return; } // bot trap
+
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    // TODO: Post to your backend endpoint
+    // const res = await fetch('/api/ideas', { method:'POST', body:data });
+    // const json = await res.json();
+
+    // Fake ticket for demo
+    const ticket = 'SN-' + Math.random().toString(36).slice(2,8).toUpperCase();
+    $('#ticket').textContent = ticket;
+    const modal = document.getElementById('success-modal');
+    modal.showModal();
+
+    // download receipt
+    const receipt = {
+      ticket,
+      name: data.get('name'), email: data.get('email'), phone: data.get('phone'),
+      title: data.get('title'), category: data.get('category'),
+      description: data.get('description'),
+      submittedAt: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(receipt, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.getElementById('download-json');
+    a.href = url; a.download = ticket + '.json';
+    localStorage.removeItem('idea-draft');
+    form.reset();
+  });
+  </script>
+</body>
+</html>
+```
+
+---
+
+```scss
+// styles.scss
+// Compile with: sass styles.scss styles.css --style=compressed
+
+
+```
