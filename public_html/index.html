@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>رویداد ملی سپر نوآوری — در حال بارگذاری</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- در صورت نیاز فونت فارسی دلخواهت را جایگزین کن -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+  <meta name="color-scheme" content="dark light" />
+</head>
+<body>
+  <!-- بک‌گراند گرید دیجیتال (حال‌وهوای پستر) -->
+  <div class="bg">
+    <div class="grid"></div>
+    <div class="radial"></div>
+  </div>
+
+  <main class="container">
+    <!-- لوگوها: طبق پستر سه‌تا جای لوگو گذاشته‌ام -->
+    <header class="logos">
+      <img src="./assets/logo-1.png" alt="لوگوی حامی ۱" onerror="this.classList.add('placeholder')" />
+      <img src="./assets/logo-2.png" alt="لوگوی حامی ۲" onerror="this.classList.add('placeholder')" />
+      <img src="./assets/logo-3.png" alt="لوگوی حامی ۳" onerror="this.classList.add('placeholder')" />
+    </header>
+
+    <!-- تیتر رویداد -->
+    <h1 class="title">رویداد ملی سپر نوآوری</h1>
+    <p class="subtitle">ایده‌پردازی و نوآوری برای مدیریت بحران، پدافند غیرعامل و تاب‌آوری اجتماعی</p>
+
+    <!-- باکس‌های الهام‌گرفته از پستر (کال‌اوت‌ها) -->
+    <section class="poster-cards">
+      <div class="card">
+        <div class="label"> آغاز رویداد</div>
+        <div class="value" id="deadline-box">—</div>
+      </div>
+      
+    </section>
+
+    <!-- نوار پیشرفت و درصد -->
+    <section class="loader">
+  <div class="bar">
+    <span id="progress-bar"><i class="spark" aria-hidden="true"></i></span>
+  </div>
+  <div class="percent"><span id="progress-text">۰%</span> در حال آماده‌سازی…</div>
+  <div class="hint">اگر سایت اصلی آماده باشد، به‌صورت خودکار منتقل می‌شوید.</div>
+</section>
+
+
+    <!-- دکمه جایگزین / دستی -->
+    <div class="actions">
+      <!-- <a id="manual-link" class="btn" href="https://soloLearn.com" aria-disabled="false">ورود به سایت اصلی</a> -->
+      <a id="manual-link" class="btn" href="#" aria-disabled="true">ورود به سایت اصلی</a>
+    </div>
+
+    <!-- پاورقی کوچک -->
+    <footer class="footer">
+      <small>© مرکز رشد واحدهای فناور — دانشگاه علوم دریایی امام خمینی (نوشهر)</small>
+    </footer>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>

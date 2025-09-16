@@ -1,0 +1,183 @@
+:root{
+  --bg:#0c1425;          /* سرمه‌ای عمیق پستر */
+  --fg:#e9eef6;          /* متن روشن */
+  --muted:#9aa4b2;       /* متن ثانویه */
+  --accent:#27e3ff;      /* آبی نئونی خطوط دیجیتال */
+  --accent2:#00ffa3;     /* سبز نئونی ملایم برای هایلایت */
+  --card:#121b2e;        /* کارت‌ها */
+  --border:#1e2a42;      /* کادر کم‌رنگ */
+  --bar:#20304c;         /* پس‌زمینه نوار پیشرفت */
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Vazirmatn", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* پس‌زمینه گرید و هاله رادیال */
+.bg{position:fixed; inset:0; overflow:hidden; pointer-events:none}
+.bg .grid{
+  position:absolute; inset:-50%;
+  background-image:
+    linear-gradient(to right, rgba(39,227,255,.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(39,227,255,.08) 1px, transparent 1px);
+  background-size:40px 40px, 40px 40px;
+  animation:gridMove 24s linear infinite;
+  filter:drop-shadow(0 0 12px rgba(39,227,255,.15));
+  opacity:.55;
+}
+@keyframes gridMove{
+  from{transform:translate3d(0,0,0) rotate(0.001deg)}
+  to{transform:translate3d(40px,40px,0) rotate(0.001deg)}
+}
+.bg .radial{
+  position:absolute; inset:0;
+  background:radial-gradient(800px 400px at 70% 30%, rgba(0,255,163,.2), transparent 55%),
+             radial-gradient(1000px 600px at 20% 70%, rgba(39,227,255,.18), transparent 60%);
+  mix-blend-mode:screen;
+}
+
+/* کانتینر مرکزی */
+.container{
+  min-height:100dvh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:24px; gap:18px; text-align:center;
+}
+
+/* لوگوها */
+.logos{
+  display:flex; gap:18px; align-items:center; justify-content:center; flex-wrap:wrap;
+  margin-bottom:6px;
+}
+.logos img{
+  width:82px; height:82px; object-fit:contain; padding:10px;
+  background:rgba(255,255,255,.02); border:1px dashed var(--border); border-radius:16px;
+  backdrop-filter: blur(4px);
+}
+.logos img.placeholder{opacity:.35}
+
+/* تیتر */
+.title{margin:0; font-weight:800; letter-spacing:.2px; font-size:clamp(22px,3.2vw,40px)}
+.subtitle{margin:0; color:var(--muted); font-size:clamp(13px,2.2vw,16px)}
+
+/* کارت‌های الهام‌گرفته از پستر */
+.poster-cards{
+  display:grid; grid-template-columns:repeat(2,minmax(180px,1fr)); gap:12px; width:min(780px,92vw);
+  margin-top:8px;
+  grid-template-columns:1fr;
+}
+.card{
+  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
+  border:1px solid var(--border); border-radius:16px; padding:14px 16px; position:relative;
+  overflow:hidden;
+}
+.card::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(120deg, rgba(39,227,255,.18), transparent 35%, rgba(0,255,163,.14));
+  opacity:.35; pointer-events:none; mix-blend-mode:screen;
+}
+.card .label{color:var(--muted); font-size:12px}
+.card .value{font-size:18px; font-weight:700; margin-top:4px}
+
+/* نوار پیشرفت */
+/* --- Progress Bar: Neon Segmented + Shine + Spark --- */
+.loader{width:min(780px,92vw)}
+.bar{
+  position:relative;
+  height:14px;
+  background:var(--bar);
+  border-radius:999px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+  /* Ticks (ریز درجه‌ها) */
+  background-image:
+    repeating-linear-gradient(to right, transparent 0 24px, rgba(255,255,255,.06) 24px 25px),
+    linear-gradient(0deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+}
+
+/* نوار پیشروی */
+#progress-bar{
+  position:relative;
+  display:block; height:100%; width:0%;
+  /* گرادیان نئونی دوتایی */
+  background:
+    linear-gradient(90deg, var(--accent), var(--accent2)),
+    radial-gradient(50% 100% at 50% 50%, rgba(255,255,255,.25), rgba(255,255,255,0) 70%);
+  background-blend-mode:screen;
+  border-radius:inherit;
+  transition:width .25s ease;
+  filter: drop-shadow(0 0 10px rgba(39,227,255,.45)) drop-shadow(0 0 18px rgba(0,255,163,.35));
+  /* ایجاد سگمنت‌ها با ماسک – در مرورگرهای WebKit و مدرن */
+  -webkit-mask: 
+    repeating-linear-gradient(to right, #000 0 28px, transparent 28px 32px);
+          mask: 
+    repeating-linear-gradient(to right, #000 0 28px, transparent 28px 32px);
+}
+
+/* موج شاین که روی بار حرکت می‌کند */
+.bar::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    linear-gradient(120deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 35%, rgba(255,255,255,.18) 70%, rgba(255,255,255,0) 100%);
+  mix-blend-mode:screen;
+  transform:translateX(-100%);
+  animation: shineSweep 2.8s linear infinite;
+  pointer-events:none;
+}
+@keyframes shineSweep{
+  to{ transform:translateX(100%); }
+}
+
+/* اسپارک (نقطه درخشان جلوی نوار) */
+.spark{
+  position:absolute; top:50%; right:-10px; /* در حالت LTR جلو می‌افتاد؛ اینجا با عرض نوار همگام می‌شود */
+  transform:translate(50%, -50%);
+  width:18px; height:18px; border-radius:50%;
+  background:
+    radial-gradient(circle at 50% 50%, #fff, rgba(255,255,255,.6) 40%, rgba(255,255,255,0) 70%);
+  box-shadow:
+    0 0 12px rgba(39,227,255,.65),
+    0 0 24px rgba(0,255,163,.5),
+    0 0 36px rgba(39,227,255,.35);
+  animation: sparkFlicker 1.2s ease-in-out infinite alternate;
+  pointer-events:none;
+}
+@keyframes sparkFlicker{
+  0%{ transform:translate(50%, -50%) scale(0.9); opacity:.9 }
+  100%{ transform:translate(50%, -50%) scale(1.08); opacity:1 }
+}
+
+/* کمی پررنگ‌تر کردن درصد */
+.percent{margin-top:10px; color:var(--fg); font-weight:800; letter-spacing:.3px}
+.hint{color:var(--muted); font-size:12px; margin-top:4px}
+
+/* ریسپانسیو کوچیک‌تر */
+@media (max-width:520px){
+  .bar{height:12px}
+  .spark{width:14px; height:14px}
+}
+
+
+/* دکمه */
+.actions{margin-top:14px}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:10px 16px; border-radius:12px; border:1px solid var(--border);
+  background:rgba(255,255,255,.02); color:var(--fg); text-decoration:none; font-weight:700;
+  transition:transform .15s ease, background .2s ease, border-color .2s ease;
+}
+.btn[aria-disabled="true"]{opacity:.5; pointer-events:none}
+.btn:hover{transform:translateY(-1px); border-color:rgba(39,227,255,.6)}
+
+/* پاورقی */
+.footer{margin-top:6px; color:var(--muted)}
+
+/* واکنش‌گرا */
+@media (max-width:520px){
+  .poster-cards{grid-template-columns:1fr}
+  .logos img{width:68px; height:68px}
+}
