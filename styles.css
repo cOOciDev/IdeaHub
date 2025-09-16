@@ -72,6 +72,7 @@ body{
   background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
   border:1px solid var(--border); border-radius:16px; padding:14px 16px; position:relative;
   overflow:hidden;
+  direction: ltr;
 }
 .card::after{
   content:""; position:absolute; inset:0;
@@ -181,3 +182,67 @@ body{
   .poster-cards{grid-template-columns:1fr}
   .logos img{width:68px; height:68px}
 }
+/* Countdown */
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(90px, 1fr));
+  gap: 12px;
+}
+.cd-item {
+  position: relative;
+  padding: 14px 10px;
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  border: 1px solid #ffffff1a;
+  background:
+    radial-gradient(120% 120% at 100% 0%, #00d1ff22 0%, #7a5cff11 40%, transparent 70%),
+    linear-gradient(180deg, #10131a, #0b0f15);
+  box-shadow: 0 6px 24px #0000004d inset, 0 2px 10px #00000026;
+  text-align: center;
+}
+.cd-item::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #00d1ff33, #7a5cff33);
+  opacity: 0.2; pointer-events: none;
+}
+.cd-num {
+  display: block;
+  font-weight: 700;
+  font-size: clamp(24px, 4.2vw, 36px);
+  letter-spacing: .5px;
+  line-height: 1.1;
+  filter: drop-shadow(0 4px 10px #00d1ff33);
+}
+.cd-label {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #a8b0bf;
+}
+.deadline {
+  font-size: 13px; color: #a8b0bf;
+}
+
+/* Loader */
+.loader { margin-top: 14px; }
+.loader .bar {
+  position: relative; height: 10px; border-radius: 999px; overflow: hidden;
+  background: #0f1420; border: 1px solid #ffffff1a;
+}
+#progress-bar {
+  display: block; height: 100%; width: 0%;
+  background: linear-gradient(90deg, #00d1ff, #7a5cff);
+  box-shadow: 0 0 18px #00d1ff88;
+  position: relative;
+  transition: width 0.8s cubic-bezier(.22,.61,.36,1);
+}
+#progress-bar .spark {
+  position: absolute; right: -6px; top: 50%; transform: translateY(-50%);
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; mix-blend-mode: screen; opacity: .65;
+  box-shadow: 0 0 24px #7a5cff, 0 0 40px #00d1ff;
+}
+.percent { margin-top: 8px; font-size: 14px; color: #cdd5e0; }
+.hint { font-size: 12px; color: #9aa4b2; margin-top: 4px; }
