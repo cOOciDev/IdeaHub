@@ -4,6 +4,7 @@ import Countdown from "../../components/Countdown/Countdown";
 import Loader from "../../components/Loader/Loader";
 import { SUBMISSION_DEADLINE } from "../../utils/constants";
 import "./Home.scss";
+import Actions from "../../components/Actions/Actions";
 
 export default function Home() {
   const { t } = useTranslation();
@@ -22,19 +23,8 @@ export default function Home() {
         </div>
 
         {/* Actions */}
-        <div className="actions">
-          <a className="btn" href="/submit">
-            {t("cta_submit") || ""}
-          </a>
-          <a
-            className="btn--ghost"
-            href="/api/v1/call/download"
-            target="_blank"
-            rel="noreferrer"
-          >
-            {t("download_call") || ""}
-          </a>
-        </div>
+        <br />
+        <Actions />
 
         {/* Info Grid */}
         <div className="grid2">

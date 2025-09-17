@@ -1,0 +1,56 @@
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+
+  .btn,
+  .btn--ghost {
+    min-width: 140px;
+    text-align: center;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .btn {
+    background: var(--accent, #4dabf7);
+    color: #fff;
+    border: none;
+
+    &:hover {
+      filter: brightness(0.9); // works with CSS variable
+    }
+  }
+
+  .btn--ghost {
+    background: transparent;
+    border: 2px solid var(--accent, #4dabf7);
+    color: var(--accent, #4dabf7);
+
+    &:hover {
+      background: var(--accent, #4dabf7);
+      color: #fff;
+    }
+  }
+}
+
+/* Dark theme */
+[data-theme="dark"] .actions {
+  .btn--ghost {
+    border-color: #fcc419;
+    color: #fcc419;
+
+    &:hover {
+      background: #fcc419;
+      color: #1f1f1f;
+    }
+  }
+
+  .btn {
+    background: #fcc419;
+    color: #1f1f1f;
+  }
+}

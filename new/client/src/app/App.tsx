@@ -6,6 +6,8 @@ import Home from "../pages/Home/Home";
 import About from "../pages/About/About";
 import Timeline from "../pages/Timeline/Timeline";
 import Contact from "../pages/Contact/Contact";
+import Submit from "../pages/Submit/Submit";
+
 function Footer() {
   const { t } = useTranslation();
   return (
@@ -30,6 +32,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/submit" element={<Submit />} />
           <Route
             path="*"
             element={

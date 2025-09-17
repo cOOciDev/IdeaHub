@@ -10,6 +10,7 @@ import newsRoutes from "./routes/news.js";
 import juryRoutes from "./routes/jury.js";
 import adminRoutes from "./routes/admin.js";
 import settingsRoutes from "./routes/settings.js";
+import downloadsRoutes from "./routes/downloads.js";
 import { notFound, errorHandler } from "./middlewares/errorHandler.js";
 
 const app = express();
@@ -40,6 +41,7 @@ app.use("/api/v1/news", newsRoutes);
 app.use("/api/v1/jury", juryRoutes);
 app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/settings", settingsRoutes);
+app.use("/api/v1/call/download", downloadsRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
