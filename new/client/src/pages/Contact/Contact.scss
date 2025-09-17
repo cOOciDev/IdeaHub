@@ -1,0 +1,121 @@
+.contact {
+  padding: 24px 0;
+
+  .header-card {
+    text-align: center;
+    margin-bottom: 24px;
+
+    .h1 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: var(--text-muted, #666);
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+
+    .card {
+      padding: 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      background: var(--card-bg, #fff);
+    }
+
+    .form-card {
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        label {
+          display: flex;
+          flex-direction: column;
+          font-weight: 500;
+
+          input,
+          textarea {
+            margin-top: 4px;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border 0.2s;
+
+            &:focus {
+              outline: none;
+              border-color: var(--accent, #4dabf7);
+            }
+          }
+        }
+
+        .btn {
+          padding: 10px 16px;
+          border-radius: 8px;
+          background: var(--accent, #4dabf7);
+          color: #fff;
+          border: none;
+          cursor: pointer;
+          font-weight: 600;
+          transition: background 0.2s;
+
+          &:hover {
+            filter: brightness(0.7); // darken effect without Sass
+          }
+        }
+
+        .success {
+          margin-top: 8px;
+          color: #2f9e44;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .info-card {
+      h2 {
+        margin-bottom: 12px;
+        font-size: 1.2rem;
+      }
+
+      p {
+        margin: 6px 0;
+      }
+    }
+  }
+}
+
+/* Dark theme */
+[data-theme="dark"] .contact {
+  .card {
+    background: #1f1f1f;
+    color: #f9f9f9;
+
+    input,
+    textarea {
+      background: #2b2b2b;
+      color: #f9f9f9;
+      border: 1px solid #555;
+    }
+  }
+
+  .subtitle {
+    color: #aaa;
+  }
+
+  .btn {
+    background: #fcc419;
+    color: #1f1f1f;
+
+    &:hover {
+      background: darken(#fcc419, 10%);
+    }
+  }
+}
