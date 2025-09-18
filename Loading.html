@@ -9,10 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
   <base href="/" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <script src="script.js" defer></script>
+  <script src="/script.js" defer></script>
 
 
   <!-- پس‌زمینه -->
@@ -24,9 +24,9 @@
   <main class="container">
     <!-- لوگوها (فعلاً با placeholder) -->
     <header class="logos" aria-label="لوگوهای حامیان">
-           <img src="./assets/logo-3.png" alt="لوگوی حامی ۳" onerror="this.classList.add('placeholder')" />
-      <img src="./assets/logo-1.png" alt="لوگوی حامی ۱" onerror="this.classList.add('placeholder')" />
-      <img src="./assets/logo-2.png" alt="لوگوی حامی ۲" onerror="this.classList.add('placeholder')" /></header>
+           <img src="/assets/logo-3.png" alt="لوگوی حامی ۳" onerror="this.classList.add('placeholder')" />
+      <img src="/assets/logo-1.png" alt="لوگوی حامی ۱" onerror="this.classList.add('placeholder')" />
+      <img src="/assets/logo-2.png" alt="لوگوی حامی ۲" onerror="this.classList.add('placeholder')" /></header>
 
     <!-- تیتر -->
     <h1 class="title">رویداد ملی سپر نوآوری</h1>
@@ -70,6 +70,13 @@
     <footer class="footer">
       <small>© مرکز رشد واحدهای فناور — دانشگاه علوم دریایی امام خمینی (نوشهر)</small>
     </footer>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(r => r.forEach(x => x.unregister())).catch(()=>{});
+      }
+    </script>
+
   </main>
 
 </body>
