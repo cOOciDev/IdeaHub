@@ -54,7 +54,8 @@ body{
 .logos img{
   width:82px; height:82px; object-fit:contain; padding:10px;
   background:rgba(255,255,255,.02); border:1px dashed var(--border); border-radius:16px;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);         /* others */
+  -webkit-backdrop-filter: blur(4px); /* Safari */
 }
 .logos img.placeholder{opacity:.35}
 
@@ -193,6 +194,7 @@ body{
   padding: 14px 10px;
   border-radius: 16px;
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); /* Safari */
   border: 1px solid #ffffff1a;
   background:
     radial-gradient(120% 120% at 100% 0%, #00d1ff22 0%, #7a5cff11 40%, transparent 70%),

@@ -1,68 +1,40 @@
-// --- Pure countdown splash (no redirects, no network, no buttons) ---
+(function () {
+  // remove any old service worker that could be auto-refreshing
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.getRegistrations()
+      .then(regs => regs.forEach(r => r.unregister()))
+      .catch(() => {});
+  }
 
-// Optional: wipe any old service worker that could hijack routing
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.getRegistrations()
-    .then(regs => regs.forEach(r => r.unregister()))
-    .catch(() => {});
-}
+  // static date text
+  const DEADLINE_TEXT = "۳۱ شهریور ۱۴۰۴";
+  const db = document.getElementById("deadline-box");
+  if (db) db.textContent = DEADLINE_TEXT;
 
-// Static date text in the card
-const DEADLINE_TEXT = "۳۱ شهریور ۱۴۰۴";
-const deadlineBox = document.getElementById("deadline-box");
-if (deadlineBox) deadlineBox.textContent = DEADLINE_TEXT;
+  // countdown target (example: Tehran time)
+  const START_AT = new Date("2025-09-22T09:00:00+03:30");
+  const fa = v => String(v).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
 
-// Countdown target (example: 22 Sep 2025, 09:00 Tehran)
-const START_AT = new Date("2025-09-22T09:00:00+03:30");
+  const elD = document.getElementById("cd-days");
+  const elH = document.getElementById("cd-hours");
+  const elM = document.getElementById("cd-mins");
+  const elS = document.getElementById("cd-secs");
 
-// Persian digits helper
-const fa = v => String(v).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  function tick() {
+    if (!(START_AT instanceof Date) || isNaN(START_AT)) return;
+    const diff = Math.max(0, START_AT - new Date());
+    const s = Math.floor(diff / 1000);
+    const d = Math.floor(s / 86400);
+    const h = Math.floor((s % 86400) / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = s % 60;
 
-// Elements (all optional)
-const elDays  = document.getElementById("cd-days");
-const elHours = document.getElementById("cd-hours");
-const elMins  = document.getElementById("cd-mins");
-const elSecs  = document.getElementById("cd-secs");
+    elD && (elD.textContent = fa(d));
+    elH && (elH.textContent = fa(h));
+    elM && (elM.textContent = fa(m));
+    elS && (elS.textContent = fa(sec));
+  }
 
-// If you kept the progress bar markup, animate it locally (no relation to any ping)
-const bar = document.getElementById("progress-bar");
-const txt = document.getElementById("progress-text");
-let progress = 0;
-function setProgress(p){
-  progress = Math.max(0, Math.min(100, p));
-  if (bar) bar.style.width = progress + "%";
-  if (txt) txt.textContent = fa(Math.round(progress)) + "٪";
-}
-// Gentle fake fill up to ~97%
-setInterval(() => {
-  if (progress < 90) setProgress(progress + Math.floor(Math.random()*6) + 2);
-  else if (progress < 97) setProgress(progress + 1);
-}, 700);
-
-// Countdown tick
-function updateCountdown() {
-  if (!(START_AT instanceof Date) || isNaN(START_AT)) return;
-
-  const now = new Date();
-  const diffMs = START_AT.getTime() - now.getTime();
-
-  const secTotal = Math.max(0, Math.floor(diffMs / 1000));
-  const days  = Math.floor(secTotal / 86400);
-  const hours = Math.floor((secTotal % 86400) / 3600);
-  const mins  = Math.floor((secTotal % 3600) / 60);
-  const secs  = secTotal % 60;
-
-  elDays  && (elDays.textContent  = fa(days));
-  elHours && (elHours.textContent = fa(hours));
-  elMins  && (elMins.textContent  = fa(mins));
-  elSecs  && (elSecs.textContent  = fa(secs));
-}
-updateCountdown();
-setInterval(updateCountdown, 1000);
-
-// If there's a manual button in HTML, keep it inert
-const manual = document.getElementById("manual-link");
-if (manual) {
-  manual.setAttribute("aria-disabled", "true");
-  manual.addEventListener("click", e => e.preventDefault());
-}
+  tick();
+  setInterval(tick, 1000);
+})();
