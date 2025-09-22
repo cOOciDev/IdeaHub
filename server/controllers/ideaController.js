@@ -1,51 +1,76 @@
-import Joi from "joi";
-import Idea from "../models/Idea.js";
-import User from "../models/User.js";
-import Parser from "papaparse";
+const Idea = require('../models/Idea');
 
-export async function createIdea(req, res) {
-  if (!req.file) return res.status(400).json({ error: "فایل PDF الزامی است" });
-  const { error, value } = Joi.object({
-    title: Joi.string().required(),
-    summary: Joi.string().allow(""),
-  }).validate(req.body);
-  if (error) return res.status(400).json({ error: error.message });
-
+exports.create = async (req, res) => {
+  const { title, track, summary, members } = req.body;
+  if (!title || !track || !summary || summary.length < 50) {
+    return res.status(400).json({ message: 'Invalid fields (summary min 50 chars)' });
+  }
+  const files = [];
+  if (req.file) {
+    files.push({
+      name: req.file.originalname,
+      storedName: req.file.filename,
+      size: req.file.size,
+      mime: req.file.mimetype,
+      path: `/uploads/${req.file.filename}`
+    });
+  }
   const idea = await Idea.create({
-    owner_user_id: req.user.sub,
-    title: value.title,
-    summary: value.summary || "",
-    pdf_path: "/" + req.file.path.replace(/\\/g, "/"),
-    pdf_size: req.file.size,
+    title,
+    track,
+    summary,
+    members: members ? JSON.parse(members) : [],
+    submitterId: req.user._id,
+    files
   });
-  res.status(201).json(idea);
-}
+  res.status(201).json(serializeIdea(idea));
+};
 
-export async function listIdeas(req, res) {
-  const role = req.user.role;
-  let q = {};
-  if (role === "user") {
-    q.owner_user_id = req.user.sub;
-  }
-  const ideas = await Idea.find(q).sort({ createdAt: -1 });
-  res.json(ideas);
-}
+exports.list = async (req, res) => {
+  const q = {};
+  if (req.query.mine === 'true') q.submitterId = req.user._id;
+  const ideas = await Idea.find(q).sort({ createdAt: -1 }).lean();
+  res.json(ideas.map(serializeIdea));
+};
 
-export async function exportIdeasCSV(req, res) {
-  const ideas = await Idea.find({}).populate("owner_user_id", "phone").lean();
-  const rows = ideas.map((i) => ({
-    id: str(i._id),
-    title: i.title,
-    phone: i.owner_user_id?.phone || "",
-    createdAt: i.createdAt?.toISOString() || "",
-    pdf: i.pdf_path,
-  }));
-  function str(x) {
-    return x == null ? "" : String(x);
-  }
-  const parser = new Parser({ header: true });
-  const csv = parser.unparse(rows);
-  res.setHeader("Content-Type", "text/csv; charset=utf-8");
-  res.setHeader("Content-Disposition", 'attachment; filename="ideas.csv"');
-  res.send(csv);
+exports.get = async (req, res) => {
+  const idea = await Idea.findById(req.params.id).lean();
+  if (!idea) return res.status(404).json({ message: 'Not found' });
+  res.json(serializeIdea(idea));
+};
+
+exports.remove = async (req, res) => {
+  const idea = await Idea.findOne({ _id: req.params.id, submitterId: req.user._id });
+  if (!idea) return res.status(404).json({ message: 'Not found' });
+  await Idea.deleteOne({ _id: idea._id });
+  res.json({ ok: true });
+};
+
+exports.update = async (req, res) => {
+  const { title, track, summary, members } = req.body;
+  const set = {};
+  if (title) set.title = title;
+  if (track) set.track = track;
+  if (summary) set.summary = summary;
+  if (members) set.members = JSON.parse(members);
+  const idea = await Idea.findOneAndUpdate({ _id: req.params.id, submitterId: req.user._id }, { $set: set }, { new: true });
+  if (!idea) return res.status(404).json({ message: 'Not found' });
+  res.json(serializeIdea(idea.toObject()));
+};
+
+function serializeIdea (doc) {
+  return {
+    id: String(doc._id),
+    title: doc.title,
+    track: doc.track,
+    summary: doc.summary,
+    members: doc.members || [],
+    status: doc.status || 'submitted',
+    files: (doc.files || []).map(f => ({
+      id: String(f._id || f.id),
+      name: f.name,
+      url: f.path
+    })),
+    createdAt: doc.createdAt
+  };
 }

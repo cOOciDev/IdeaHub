@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import { auth, role } from '../middlewares/auth.js'
-import { uploadPDF } from '../middlewares/upload.js'
-import { createIdea, listIdeas, exportIdeasCSV } from '../controllers/ideaController.js'
+const express = require('express');
+const router = express.Router();
+const auth = require('../middlewares/auth');
+const upload = require('../middlewares/upload');
+const ctrl = require('../controllers/ideaController');
 
-const router = Router()
+router.post('/', auth, upload.single('file'), ctrl.create);
+router.get('/', auth, ctrl.list);
+router.get('/:id', auth, ctrl.get);
+router.delete('/:id', auth, ctrl.remove);
+router.patch('/:id', auth, ctrl.update);
 
-router.get('/', auth(true), listIdeas)
-router.post('/', auth(true), uploadPDF.single('pdf'), createIdea)
-router.get('/export/csv', auth(true), role('admin'), exportIdeasCSV)
-
-export default router
+module.exports = router;

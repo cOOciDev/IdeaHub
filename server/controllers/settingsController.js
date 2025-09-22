@@ -1,12 +1,7 @@
-import Settings from '../models/Settings.js'
+const Settings = require('../models/Settings');
 
-export async function getSettings(req,res){
-  const s = await Settings.findOne().lean()
-  res.json(s || {})
-}
-
-export async function updateSettings(req,res){
-  const payload = req.body || {}
-  const s = await Settings.findOneAndUpdate({}, payload, { upsert: true, new: true, setDefaultsOnInsert: true })
-  res.json(s)
-}
+exports.getAll = async (req, res) => {
+  const docs = await Settings.find({}).lean();
+  const map = Object.fromEntries(docs.map(d => [d.key, d.value]));
+  res.json(map);
+};

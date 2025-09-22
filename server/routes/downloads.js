@@ -1,9 +1,8 @@
-import { Router } from "express";
+const express = require('express');
+const router = express.Router();
+const auth = require('../middlewares/auth');
+const ctrl = require('../controllers/downloadController');
 
-import { downloadFile } from "../controllers/downloadController.js";
+router.get('/:fileId', auth, ctrl.byId);
 
-const router = Router();
-
-router.get("/", downloadFile);
-
-export default router;
+module.exports = router;

@@ -1,9 +1,7 @@
-import { Router } from 'express'
-import { auth, role } from '../middlewares/auth.js'
-import { getSettings, updateSettings } from '../controllers/settingsController.js'
+const express = require('express');
+const router = express.Router();
+const ctrl = require('../controllers/settingsController');
 
-const router = Router()
-router.get('/', getSettings)
-router.put('/', auth(true), role('admin'), updateSettings)
+router.get('/', ctrl.getAll);
 
-export default router
+module.exports = router;

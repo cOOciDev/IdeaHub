@@ -1,50 +1,71 @@
-import "dotenv/config";
-import express from "express";
-import cors from "cors";
-import helmet from "helmet";
-import morgan from "morgan";
-import { connectDB } from "./config/db.js";
-import authRoutes from "./routes/auth.js";
-import ideaRoutes from "./routes/ideas.js";
-import newsRoutes from "./routes/news.js";
-import juryRoutes from "./routes/jury.js";
-import adminRoutes from "./routes/admin.js";
-import settingsRoutes from "./routes/settings.js";
-import downloadsRoutes from "./routes/downloads.js";
-import { notFound, errorHandler } from "./middlewares/errorHandler.js";
+require('dotenv').config();
+require('express-async-errors');
+
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const path = require('path');
+const fs = require('fs');
+
+const connectDB = require('./config/db');
+
+// Routes (V03 existing style)
+const authRoutes = require('./routes/auth');
+const ideasRoutes = require('./routes/ideas');
+const juryRoutes = require('./routes/jury');
+const downloadsRoutes = require('./routes/downloads');
+const newsRoutes = require('./routes/news');
+const settingsRoutes = require('./routes/settings');
+const adminRoutes = require('./routes/admin');
+
+const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
-// security
 app.use(helmet());
-app.use(express.json({ limit: "1mb" }));
+app.use(morgan('dev'));
+app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan("dev"));
+app.use(cookieParser());
 
-const origins = (process.env.ALLOWED_ORIGINS || "")
-  .split(",")
-  .map((s) => s.trim())
-  .filter(Boolean);
-app.use(cors({ origin: (origin, cb) => cb(null, true), credentials: true }));
+const origins = (process.env.CORS_ORIGINS || 'http://localhost:5173,http://localhost:3000')
+  .split(',')
+  .map(s => s.trim());
+app.use(cors({ origin: origins, credentials: true }));
 
-// static files for uploaded PDFs
-app.use("/uploads/ideas", express.static("uploads/ideas"));
+// Ensure uploads dir exists
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+app.use('/uploads', express.static(uploadsDir));
 
-// db
-await connectDB();
+// DB
+connectDB().then(() => console.log('✅ Mongo connected')).catch(err => {
+  console.error('❌ Mongo error:', err.message);
+  process.exit(1);
+});
 
-// routes
-app.get("/api/v1/health", (req, res) => res.json({ ok: true, ts: Date.now() }));
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/ideas", ideaRoutes);
-app.use("/api/v1/news", newsRoutes);
-app.use("/api/v1/jury", juryRoutes);
-app.use("/api/v1/admin", adminRoutes);
-app.use("/api/v1/settings", settingsRoutes);
-app.use("/api/v1/call/download", downloadsRoutes);
+// --- Legacy mounts (keep backward compat if you had clients hitting /api/*)
+app.use('/api/auth', authRoutes);
+app.use('/api/ideas', ideasRoutes);
+app.use('/api/jury', juryRoutes);
+app.use('/api/downloads', downloadsRoutes);
+app.use('/api/news', newsRoutes);
+app.use('/api/settings', settingsRoutes);
+app.use('/api/admin', adminRoutes);
 
-app.use(notFound);
+// --- V04 mounts (new)
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/ideas', ideasRoutes);
+app.use('/api/v1/judges', juryRoutes);
+app.use('/api/v1/downloads', downloadsRoutes);
+app.use('/api/v1/news', newsRoutes);
+app.use('/api/v1/settings', settingsRoutes);
+app.use('/api/v1/admin', adminRoutes);
+
+// Error handler
 app.use(errorHandler);
 
 const port = process.env.PORT || 4000;
-app.listen(port, () => console.log("✅  Server running on port", port));
+app.listen(port, () => console.log(`🚀 API ready on http://localhost:${port}`));

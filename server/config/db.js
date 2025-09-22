@@ -1,9 +1,10 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
-export async function connectDB() {
+module.exports = async function connectDB () {
   const uri = process.env.MONGO_URI;
-  if (!uri) throw new Error("MONGO_URI not set");
-  mongoose.set("strictQuery", true);
-  await mongoose.connect(uri);
-  console.log("✅  Mongo connected");
-}
+  if (!uri) throw new Error('MONGO_URI is not set');
+  await mongoose.connect(uri, {
+    maxPoolSize: 10,
+    serverSelectionTimeoutMS: 10000
+  });
+};

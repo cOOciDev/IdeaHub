@@ -1,28 +1,14 @@
-import jwt from 'jsonwebtoken'
+const jwt = require('jsonwebtoken');
 
-export function auth(required=true){
-  return (req,res,next)=>{
-    const header = req.headers.authorization || ''
-    const token = header.startsWith('Bearer ') ? header.slice(7) : null
-    if(!token){
-      if(required) return res.status(401).json({ error: 'Unauthorized' })
-      req.user = null; return next()
-    }
-    try{
-      const decoded = jwt.verify(token, process.env.JWT_SECRET)
-      req.user = decoded
-      next()
-    }catch(e){
-      return res.status(401).json({ error: 'Invalid token' })
-    }
+module.exports = function auth (req, res, next) {
+  const hdr = req.headers.authorization || '';
+  const token = hdr.startsWith('Bearer ') ? hdr.slice(7) : null;
+  if (!token) return res.status(401).json({ code: 'UNAUTHORIZED', message: 'No token' });
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = payload; // { _id, role, name, email }
+    return next();
+  } catch (e) {
+    return res.status(401).json({ code: 'UNAUTHORIZED', message: 'Invalid token' });
   }
-}
-
-export function role(...roles){
-  return (req,res,next)=>{
-    if(!req.user || !roles.includes(req.user.role)){
-      return res.status(403).json({ error: 'Forbidden' })
-    }
-    next()
-  }
-}
+};

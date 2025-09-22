@@ -1,10 +1,8 @@
-import { Router } from 'express'
-import { auth, role } from '../middlewares/auth.js'
-import { listIdeasForJury, submitReview } from '../controllers/juryController.js'
+const express = require('express');
+const router = express.Router();
+const auth = require('../middlewares/auth');
+const ctrl = require('../controllers/juryController');
 
-const router = Router()
+router.get('/', auth, ctrl.list);
 
-router.get('/ideas', auth(true), role('judge'), listIdeasForJury)
-router.post('/reviews', auth(true), role('judge'), submitReview)
-
-export default router
+module.exports = router;

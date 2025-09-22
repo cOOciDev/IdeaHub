@@ -1,24 +1,24 @@
-import multer from 'multer'
-import path from 'path'
-import fs from 'fs'
+const multer = require('multer');
+const path = require('path');
+const { nanoid } = require('nanoid');
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const dir = 'uploads/ideas'
-    fs.mkdirSync(dir, { recursive: true })
-    cb(null, dir)
-  },
+  destination: (req, file, cb) => cb(null, path.join(__dirname, '..', 'uploads')),
   filename: (req, file, cb) => {
-    const safe = Date.now() + '-' + Math.round(Math.random()*1e9)
-    cb(null, safe + '-' + file.originalname.replace(/\s+/g,'_'))
+    const ext = path.extname(file.originalname) || '';
+    cb(null, `${Date.now()}-${nanoid(8)}${ext}`);
   }
-})
+});
 
-export const uploadPDF = multer({
+module.exports = multer({
   storage,
-  limits: { fileSize: 50 * 1024 * 1024 }, // 50MB
+  limits: { fileSize: 50 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    if(file.mimetype === 'application/pdf') cb(null, true)
-    else cb(new Error('فقط فایل PDF مجاز است.'))
+    const ok = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    ].includes(file.mimetype);
+    cb(ok ? null : new Error('INVALID_FILE_TYPE'));
   }
-})
+});

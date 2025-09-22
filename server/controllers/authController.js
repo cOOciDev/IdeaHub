@@ -1,36 +1,30 @@
-import jwt from 'jsonwebtoken'
-import Joi from 'joi'
-import User from '../models/User.js'
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
-// OTP موک برای توسعه
-const OTP_STORE = new Map() // phone -> code
+exports.signup = async (req, res) => {
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) return res.status(400).json({ message: 'Missing fields' });
+  const exists = await User.findOne({ email });
+  if (exists) return res.status(409).json({ message: 'Email in use' });
+  const passwordHash = await bcrypt.hash(password, 10);
+  const user = await User.create({ name, email, passwordHash });
+  const token = jwt.sign({ _id: user._id, role: user.role, name: user.name, email: user.email }, process.env.JWT_SECRET, { expiresIn: '7d' });
+  res.json({ token });
+};
 
-export async function requestOtp(req,res){
-  const { error, value } = Joi.object({ phone: Joi.string().required() }).validate(req.body)
-  if(error) return res.status(400).json({ error: error.message })
-  const { phone } = value
-  const code = String(Math.floor(100000 + Math.random()*900000)) // 6 digits
-  OTP_STORE.set(phone, code)
-  const resp = { ok: true }
-  if(process.env.NODE_ENV !== 'production'){
-    resp.codePreview = code
-  }
-  res.json(resp)
-}
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) return res.status(401).json({ message: 'Invalid credentials' });
+  const ok = await bcrypt.compare(password, user.passwordHash);
+  if (!ok) return res.status(401).json({ message: 'Invalid credentials' });
+  const token = jwt.sign({ _id: user._id, role: user.role, name: user.name, email: user.email }, process.env.JWT_SECRET, { expiresIn: '7d' });
+  res.json({ token });
+};
 
-export async function verifyOtp(req,res){
-  const { error, value } = Joi.object({
-    phone: Joi.string().required(),
-    code: Joi.string().required()
-  }).validate(req.body)
-  if(error) return res.status(400).json({ error: error.message })
-  const { phone, code } = value
-  const expected = OTP_STORE.get(phone)
-  if(!expected || expected !== code) return res.status(400).json({ error: 'کد نادرست است' })
-  OTP_STORE.delete(phone)
-  // find or create user
-  let user = await User.findOne({ phone })
-  if(!user) user = await User.create({ phone, role: 'user' })
-  const token = jwt.sign({ sub: user._id, phone, role: user.role }, process.env.JWT_SECRET, { expiresIn: '7d' })
-  res.json({ token, role: user.role })
-}
+exports.me = async (req, res) => {
+  const u = await User.findById(req.user._id).lean();
+  if (!u) return res.status(404).json({ message: 'User not found' });
+  res.json({ id: u._id, name: u.name, email: u.email, role: u.role });
+};
