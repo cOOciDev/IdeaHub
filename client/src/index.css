@@ -1,0 +1,25 @@
+/* Base + font-face (provide files under public/fonts/peyda) */
+/* @font-face {
+  font-family: 'Peyda';
+  src: url('/fonts/peyda/Peyda-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Peyda';
+  src: url('/fonts/peyda/Peyda-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+} */
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:'Peyda',system-ui,Segoe UI,Roboto,Arial}
+a{color:inherit;text-decoration:none}
+.container{max-width:1200px;margin:auto;padding:16px}
+.btn{background:var(--brand-acc);color:#fff;border:none;border-radius:12px;padding:10px 16px;cursor:pointer}
+.btn.outline{background:transparent;border:1px solid var(--brand-acc);color:var(--brand-acc)}
+.card{background:var(--bg-soft);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.header-gap{height:72px}

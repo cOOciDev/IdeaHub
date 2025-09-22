@@ -1,0 +1,14 @@
+.wrap{position:fixed;top:0;left:0;right:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(12,20,37,.7);border-bottom:1px solid rgba(255,255,255,.08);z-index:50}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1200px;margin:auto;padding:10px 16px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{width:36px;height:36px;border-radius:8px}
+.links{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.links a{padding:8px 10px;border-radius:10px}
+.links a.active, .links a:hover{background:rgba(255,255,255,.06)}
+.ctas{display:flex;gap:8px;align-items:center}
+.lang{border:1px solid rgba(255,255,255,.14);padding:6px 10px;border-radius:10px;cursor:pointer}
+.menu{display:none}
+@media (max-width:768px){
+  .links{display:none}
+  .menu{display:inline-flex}
+}

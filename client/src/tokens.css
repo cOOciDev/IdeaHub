@@ -1,0 +1,12 @@
+:root{
+  --brand:#0c1425; /* deep navy */
+  --brand-acc:#2b6fff; /* blue CTA */
+  --bg:#0b1020;
+  --bg-soft:#12172a;
+  --fg:#e9eef6;
+  --muted:#a6b0c6;
+  --radius:16px;
+}
+[data-theme='light']{
+  --bg:#ffffff; --bg-soft:#f6f7fb; --fg:#0b1020; --muted:#5a6275;
+}
