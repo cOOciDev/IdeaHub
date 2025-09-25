@@ -8,6 +8,7 @@
 # testing
 /coverage
 /try statics
+/client/node_modules
 # /new
 
 # production

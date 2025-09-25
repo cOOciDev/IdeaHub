@@ -1,5 +1,6 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
+<<<<<<< Updated upstream:Loading.html
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -35,11 +36,89 @@
           </div><br />
           <div class="deadline">
             <span>زمان شروع: </span><strong id="deadline-box">—</strong>
+=======
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>رویداد ملی سپر نوآوری — در حال بارگذاری</title>
+    <meta name="color-scheme" content="dark light" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- پس‌زمینه -->
+    <div class="bg">
+      <div class="grid"></div>
+      <div class="radial"></div>
+    </div>
+
+    <main class="container">
+      <!-- لوگوها (فعلاً با placeholder) -->
+      <header class="logos" aria-label="لوگوهای حامیان">
+        <img
+          src="./assets/logo-3.png"
+          alt="لوگوی حامی ۳"
+          onerror="this.classList.add('placeholder')"
+        />
+        <img
+          src="./assets/logo-1.png"
+          alt="لوگوی حامی ۱"
+          onerror="this.classList.add('placeholder')"
+        />
+        <img
+          src="./assets/logo-2.png"
+          alt="لوگوی حامی ۲"
+          onerror="this.classList.add('placeholder')"
+        />
+      </header>
+
+      <!-- تیتر -->
+      <h1 class="title">رویداد ملی سپر نوآوری</h1>
+      <p class="subtitle">
+        ایده‌پردازی و نوآوری برای مدیریت بحران، پدافند غیرعامل و تاب‌آوری
+        اجتماعی
+      </p>
+
+      <!-- کارت رویداد + شمارشگر -->
+      <section class="poster-cards">
+        <div class="card">
+          <div class="label">آغاز رویداد</div>
+          <br />
+
+          <div class="value">
+            <div class="countdown" aria-live="polite">
+              <div class="cd-item">
+                <span class="cd-num" id="cd-days">۰</span
+                ><span class="cd-label">روز</span>
+              </div>
+              <div class="cd-item">
+                <span class="cd-num" id="cd-hours">۰</span
+                ><span class="cd-label">ساعت</span>
+              </div>
+              <div class="cd-item">
+                <span class="cd-num" id="cd-mins">۰</span
+                ><span class="cd-label">دقیقه</span>
+              </div>
+              <div class="cd-item">
+                <span class="cd-num" id="cd-secs">۰</span
+                ><span class="cd-label">ثانیه</span>
+              </div>
+            </div>
+            <br />
+            <div class="deadline">
+              <span>زمان شروع: </span><strong id="deadline-box">—</strong>
+            </div>
+>>>>>>> Stashed changes:index.html
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
+<<<<<<< Updated upstream:Loading.html
     <footer class="footer">
       <small>© مرکز رشد واحدهای فناور — دانشگاه علوم دریایی امام خمینی (نوشهر)</small>
     </footer>
@@ -48,4 +127,32 @@
   <!-- Pure countdown. No fetch/redirect/reload. -->
   <script src="/script.js?v=1" defer></script>
 </body>
+=======
+      <!-- نوار پیشرفت -->
+      <!-- <section class="loader">
+      <div class="bar">
+        <span id="progress-bar"><i class="spark" aria-hidden="true"></i></span>
+      </div>
+      <div class="percent"><span id="progress-text">۰٪</span> در حال آماده‌سازی…</div>
+      <div class="hint">اگر سایت اصلی آماده باشد، به‌صورت خودکار منتقل می‌شوید.</div>
+    </section> -->
+
+      <!-- دکمه دستی -->
+      <div class="actions">
+        <a id="manual-link" class="btn" href="#" aria-disabled="true"
+          >ورود به سایت اصلی</a
+        >
+      </div>
+
+      <footer class="footer">
+        <small
+          >© مرکز رشد واحدهای فناور — دانشگاه علوم دریایی امام خمینی
+          (نوشهر)</small
+        >
+      </footer>
+    </main>
+
+    <script src="/script.js" defer></script>
+  </body>
+>>>>>>> Stashed changes:index.html
 </html>
